@@ -13,9 +13,9 @@ spring:
       suffix: .jsp
       
   jpa:
-    open-in-view: true
+    open-in-view: true #DB세션을 view단까지 계속 오픈 시키겠다
     hibernate:
-      ddl-auto: update #create
+      ddl-auto: update #create #update #none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -35,6 +35,11 @@ spring:
     user:
       name: test
       password: 1234   
+    oauth2:      client:        registration:          facebook:
+            client-id: 694819808528533
+            client-secret: d373ab727ddb33283c940fd41e9812db
+            scope:            - public_profile
+            - email
 
 file:
-  path: C:/workspace/springbootwork/upload/
+  path: C:/dev/spring-4.11.0_workspace/upload/

@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+<!-- 시큐리티 태그라이브러리를 이용한 세션정보 접근 방법!! -->
+<!-- 해당방법을 적용하면 model에 유저정보를 담을 필요가 없음! -->
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="principal"/> <!-- 시큐리티 태그라이브러리 갖추어진 형식으로 키워드는 정해져있다 변수(var)값만 정하면 된다. -->
+</sec:authorize>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,20 +35,23 @@
 
 <body>
 	
+	<!-- principalId 담아두는 곳 -->
+	<input type="hidden" id="principalId" value="${principal.user.id}"/>
+	
 	<header class="header">
 		<div class="container">
-			<a href="/image/story" class="logo">
+			<a href="/" class="logo">
 				<img src="/images/logo.jpg" alt="">
 			</a>
 			<nav class="navi">
 				<ul class="navi-list">
-					<li class="navi-item"><a href="/image/story">
+					<li class="navi-item"><a href="/">
 							<i class="fas fa-home"></i>
 						</a></li>
 					<li class="navi-item"><a href="/image/popular">
 							<i class="far fa-compass"></i>
 						</a></li>
-					<li class="navi-item"><a href="/user/profile">
+					<li class="navi-item"><a href="/user/${principal.user.id}">
 							<i class="far fa-user"></i>
 						</a></li>
 				</ul>

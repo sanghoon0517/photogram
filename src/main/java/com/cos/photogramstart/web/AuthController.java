@@ -42,27 +42,14 @@ public class AuthController {
 	@PostMapping("/auth/signup")
 	public String signup(@Valid SignupDto signupDto, BindingResult bindingResult) { //key=value형식(x-www-form-urlencoded)으로 들어올 것임
 		//@ResponseBody 어노테이션이 붙으면 @Controller어노테이션이 붙어도 파일을 리턴하는 것이 아니라 데이터를 리턴한다.
-		
-		//BindingResult 인터페이스는 에러내역들을 모두 모아준다.
-		if(bindingResult.hasErrors()) { //에러가 있다면
-			Map<String, String> errorMap = new HashMap<>();
-			
-			for(FieldError error : bindingResult.getFieldErrors()) {
-				errorMap.put(error.getField(), error.getDefaultMessage());
-				System.out.println("===================================");
-				System.out.println(error.getDefaultMessage());
-				System.out.println("===================================");
-			}
-			throw new CustomValidationException("유효성 검사 실패함",errorMap);
-		} else {
-			log.info("signupDto : "+signupDto.toString());
-			//User <- SignupDto
-			User user = signupDto.toEntity();
-			log.info(user.toString());
-			User userEntity = authService.회원가입(user);
-			System.out.println("userEntity : "+userEntity);
-			return "auth/signin"; //회원가입이 성공하면 로그인페이지로 이동
-		}
+	
+		log.info("signupDto : "+signupDto.toString());
+		//User <- SignupDto
+		User user = signupDto.toEntity();
+		log.info(user.toString());
+		User userEntity = authService.회원가입(user);
+		System.out.println("userEntity : "+userEntity);
+		return "auth/signin"; //회원가입이 성공하면 로그인페이지로 이동
 		
 	}
 	
